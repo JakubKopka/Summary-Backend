@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.kopka.summary.domain.model.Billing;
 import pl.kopka.summary.domain.model.Month;
+import pl.kopka.summary.domain.model.Operation;
 import pl.kopka.summary.repository.BillingRepo;
 import pl.kopka.summary.repository.MonthRepo;
 
@@ -35,7 +36,9 @@ public class MonthService {
     }
 
     public List<Month> getAllUserMonths(){
-        return userService.getCurrentLoginUser().getBilling().getMonths();
+        List<Month> months = userService.getCurrentLoginUser().getBilling().getMonths();
+        months.forEach(obj -> obj.setSummary(obj.getOperationList().stream().mapToDouble(Operation::getAmount).sum()));
+        return months;
     }
 
 }

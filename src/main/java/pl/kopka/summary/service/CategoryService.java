@@ -36,4 +36,8 @@ public class CategoryService {
     public List<Category> getAll() {
         return userService.getCurrentLoginUser().getBilling().getCategories();
     }
+
+    public void delete(String categoryId) {
+        categoryRepo.deleteCategoryByCategoryId(categoryId);
+    }
 }

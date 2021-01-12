@@ -24,12 +24,14 @@ public class EmailService {
 
     public void sendWelcomingEmail(User user) {
         String textMessage = "Hello " + user.getFirstName() + ", \n \n Your new account is created!" + "" + "\n \n The Support Team";
-        sendEmail(user.getEmail(), EmailConst.EMAIL_WELCOMING__SUBJECT, textMessage);
+//        sendEmail(user.getEmail(), EmailConst.EMAIL_WELCOMING__SUBJECT, textMessage);
+        LOGGER.info(textMessage);
     }
 
     public void sendNewPasswordEmail(User user, String password) {
         String textMessage = "Hello " + user.getFirstName() + ", \n \n Your new password: " + password + "\n \n The Support Team";
-        sendEmail(user.getEmail(), EmailConst.EMAIL_NEW_PASSWORD_SUBJECT, textMessage);
+//        sendEmail(user.getEmail(), EmailConst.EMAIL_NEW_PASSWORD_SUBJECT, textMessage);
+        LOGGER.info(textMessage);
     }
 
     public void sendEmail(String email, String subject, String textMessage) {

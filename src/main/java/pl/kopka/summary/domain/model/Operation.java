@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class Operation {
     private String operationId;
     private double amount;
     private String description;
+    private Date date;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Transient
     private String categoryId;

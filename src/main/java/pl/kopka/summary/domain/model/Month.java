@@ -23,7 +23,7 @@ public class Month {
     private String monthId;
     private int monthNumber;
     private int year;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "operationId")
     private List<Operation> operationList = new ArrayList<>();
     @Transient

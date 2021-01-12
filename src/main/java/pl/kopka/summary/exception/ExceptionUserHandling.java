@@ -4,16 +4,20 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.kopka.summary.domain.HttpResponse;
 import pl.kopka.summary.exception.exceptions.*;
+
+import java.util.Objects;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -49,11 +53,11 @@ public class ExceptionUserHandling implements ErrorController {
         return createHttpResponse(UNAUTHORIZED, ACCOUNT_LOCKED);
     }
 
-//    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-//    public ResponseEntity<HttpResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
-//        HttpMethod supportedMethod = Objects.requireNonNull(exception.getSupportedHttpMethods()).iterator().next();
-//        return createHttpResponse(METHOD_NOT_ALLOWED, String.format(METHOD_IS_NOT_ALLOWED, supportedMethod));
-//    }
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<HttpResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
+        HttpMethod supportedMethod = Objects.requireNonNull(exception.getSupportedHttpMethods()).iterator().next();
+        return createHttpResponse(METHOD_NOT_ALLOWED, String.format(METHOD_IS_NOT_ALLOWED, supportedMethod));
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<HttpResponse> internalServerErrorException(Exception exception) {
