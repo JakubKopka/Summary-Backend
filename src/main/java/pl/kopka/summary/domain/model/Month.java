@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "months")
 public class Month {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,16 +20,17 @@ public class Month {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
     private String monthId;
-    private int monthNumber;
+    private int number;
     private int year;
-    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "operationId")
+
+    @JoinColumn(name = "monthId")
+    @OneToMany
     private List<Operation> operationList = new ArrayList<>();
+
     @Transient
-    private double summary = getCurrentMonthSummary();
+    private double total = getCurrentMonthSummary();
 
     private double getCurrentMonthSummary() {
-        System.out.println(this.getOperationList());
         return this.getOperationList().stream().mapToDouble(Operation::getAmount).sum();
     }
 

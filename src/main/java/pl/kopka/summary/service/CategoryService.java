@@ -25,12 +25,11 @@ public class CategoryService {
 
     public Category addNewCategory(Category category){
         category.setCategoryId(RandomStringUtils.randomNumeric(20));
-        Category newCategory = categoryRepo.save(category);
-        User user = userService.getCurrentLoginUser();
-        Billing billing = user.getBilling();
-        billing.addCategory(newCategory);
+        category = categoryRepo.save(category);
+        Billing billing = userService.getCurrentLoginUser().getBilling();
+        billing.addCategory(category);
         billingRepo.save(billing);
-        return newCategory;
+        return category;
     }
 
     public List<Category> getAll() {

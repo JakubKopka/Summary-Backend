@@ -23,7 +23,6 @@ import static java.util.Arrays.stream;
 @Setter
 @NoArgsConstructor
 @ToString
-@Table(name = "users")
 public class User implements UserDetails {
 
     @Id

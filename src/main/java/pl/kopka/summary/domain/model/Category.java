@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +25,7 @@ public class Category {
     private String name;
     private String description;
     @OneToMany(orphanRemoval=true)
-//    @JoinColumn(name = "operation_id")
+    @JoinColumn(name = "categoryId")
     private List<Operation> operationList = new ArrayList<>();
 
     public void addOperation(Operation operation){

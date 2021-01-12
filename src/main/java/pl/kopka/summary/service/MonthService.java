@@ -27,9 +27,9 @@ public class MonthService {
 
 
     public Month addNewMonth(Month month){
-        Billing billing = userService.getCurrentLoginUser().getBilling();
         month.setMonthId(RandomStringUtils.randomNumeric(20));
         month = monthRepo.save(month);
+        Billing billing = userService.getCurrentLoginUser().getBilling();
         billing.addMonth(month);
         billingRepo.save(billing);
         return month;
@@ -37,7 +37,7 @@ public class MonthService {
 
     public List<Month> getAllUserMonths(){
         List<Month> months = userService.getCurrentLoginUser().getBilling().getMonths();
-        months.forEach(obj -> obj.setSummary(obj.getOperationList().stream().mapToDouble(Operation::getAmount).sum()));
+        months.forEach(obj -> obj.setTotal(obj.getOperationList().stream().mapToDouble(Operation::getAmount).sum()));
         return months;
     }
 

@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-@Table(name = "billings")
 public class Billing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +22,13 @@ public class Billing {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long id;
     private String billingId;
+
+    @JoinColumn(name = "billingId")
     @OneToMany
-//    @JoinColumn(name = "monthId")
     private List<Month> months = new ArrayList<>();
+
+    @JoinColumn(name = "billingId")
     @OneToMany
-//    @JoinColumn(name = "categoryId")
     private List<Category> categories = new ArrayList<>();
 
     public void addCategory(Category category){
