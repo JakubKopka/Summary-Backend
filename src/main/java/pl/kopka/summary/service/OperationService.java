@@ -23,14 +23,15 @@ public class OperationService {
     UserService userService;
 
     public Operation addNewOperation(Operation operation){
+        Category category = categoryRepo.findCategoryByCategoryId(operation.getCategoryId());
         operation.setOperationId(RandomStringUtils.randomNumeric(20));
+        operation.setCategory(category);
         operation = operationRepo.save(operation);
         Month month = monthRepo.findMonthByMonthId(operation.getMonthId());
         month.addOperation(operation);
         monthRepo.save(month);
-        Category category = categoryRepo.findCategoryByCategoryId(operation.getCategoryId());
         category.addOperation(operation);
-        categoryRepo.save(category);
+        category = categoryRepo.save(category);
         return operation;
     }
 }

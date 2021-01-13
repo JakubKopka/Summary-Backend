@@ -1,5 +1,6 @@
 package pl.kopka.summary.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,8 @@ public class Operation {
     private double amount;
     private String description;
     private Date date;
+    @ManyToOne
+    private Category category;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Transient
     private String categoryId;

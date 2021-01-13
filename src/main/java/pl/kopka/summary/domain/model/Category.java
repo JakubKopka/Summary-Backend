@@ -1,5 +1,6 @@
 package pl.kopka.summary.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +25,7 @@ public class Category {
     private String categoryId;
     private String name;
     private String description;
-    @OneToMany(orphanRemoval=true)
-    @JoinColumn(name = "categoryId")
+    @OneToMany(mappedBy = "category")
     private List<Operation> operationList = new ArrayList<>();
 
     public void addOperation(Operation operation){
