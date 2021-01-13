@@ -9,6 +9,7 @@ import pl.kopka.summary.domain.model.User;
 import pl.kopka.summary.repository.BillingRepo;
 import pl.kopka.summary.repository.CategoryRepo;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -36,6 +37,7 @@ public class CategoryService {
         return userService.getCurrentLoginUser().getBilling().getCategories();
     }
 
+    @Transactional
     public void delete(String categoryId) {
         categoryRepo.deleteCategoryByCategoryId(categoryId);
     }
