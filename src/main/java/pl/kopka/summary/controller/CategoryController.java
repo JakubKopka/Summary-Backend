@@ -9,6 +9,7 @@ import pl.kopka.summary.domain.model.Category;
 import pl.kopka.summary.service.CategoryService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/category")
@@ -28,7 +29,7 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Category>> getAll(){
+    public ResponseEntity<Set<Category>> getAll(){
         return new ResponseEntity<>(categoryService.getAll(), HttpStatus.OK);
     }
 

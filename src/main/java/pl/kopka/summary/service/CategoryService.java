@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.kopka.summary.domain.model.Billing;
 import pl.kopka.summary.domain.model.Category;
+import pl.kopka.summary.domain.model.Operation;
 import pl.kopka.summary.domain.model.User;
 import pl.kopka.summary.repository.BillingRepo;
 import pl.kopka.summary.repository.CategoryRepo;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CategoryService {
@@ -33,8 +35,10 @@ public class CategoryService {
         return category;
     }
 
-    public List<Category> getAll() {
-        return userService.getCurrentLoginUser().getBilling().getCategories();
+    public Set<Category> getAll() {
+        Set<Category> categories = userService.getCurrentLoginUser().getBilling().getCategories();
+        categories.forEach(obj -> obj.setTotal(obj.getOperationList().stream().mapToDouble(Operation::getAmount).sum()));
+        return categories;
     }
 
     @Transactional

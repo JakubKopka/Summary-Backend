@@ -11,7 +11,9 @@ import pl.kopka.summary.domain.model.Operation;
 import pl.kopka.summary.repository.BillingRepo;
 import pl.kopka.summary.repository.MonthRepo;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -35,8 +37,8 @@ public class MonthService {
         return month;
     }
 
-    public List<Month> getAllUserMonths(){
-        List<Month> months = userService.getCurrentLoginUser().getBilling().getMonths();
+    public Set<Month> getAllUserMonths(){
+        Set<Month> months = userService.getCurrentLoginUser().getBilling().getMonths();
         months.forEach(obj -> obj.setTotal(obj.getOperationList().stream().mapToDouble(Operation::getAmount).sum()));
         return months;
     }

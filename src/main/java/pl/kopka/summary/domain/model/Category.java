@@ -1,5 +1,6 @@
 package pl.kopka.summary.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -9,7 +10,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -26,9 +29,13 @@ public class Category {
     private String name;
     private String description;
     @OneToMany(mappedBy = "category")
-    private List<Operation> operationList = new ArrayList<>();
+    @JsonIgnore
+    private Set<Operation> operationList = new HashSet<>();
+    @Transient
+    private double total = 0;
 
     public void addOperation(Operation operation){
         this.operationList.add(operation);
     }
+
 }

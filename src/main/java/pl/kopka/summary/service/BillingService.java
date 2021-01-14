@@ -8,6 +8,7 @@ import pl.kopka.summary.domain.model.Month;
 import pl.kopka.summary.repository.BillingRepo;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BillingService {
@@ -26,7 +27,7 @@ public class BillingService {
         return billingRepo.save(billing);
     }
 
-    public List<Month> getAllUserMonths() {
+    public Set<Month> getAllUserMonths() {
         return monthService.getAllUserMonths();
     }
 

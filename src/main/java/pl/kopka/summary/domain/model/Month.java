@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,17 +28,12 @@ public class Month {
 
     @JoinColumn(name = "monthId")
     @OneToMany
-    private List<Operation> operationList = new ArrayList<>();
+    private Set<Operation> operationList = new HashSet<>();
 
     @Transient
-    private double total = getCurrentMonthSummary();
-
-    private double getCurrentMonthSummary() {
-        return this.getOperationList().stream().mapToDouble(Operation::getAmount).sum();
-    }
+    private double total = 0;
 
     public void addOperation(Operation operation){
         this.operationList.add(operation);
     }
-
 }

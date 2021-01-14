@@ -11,6 +11,7 @@ import pl.kopka.summary.domain.model.Month;
 import pl.kopka.summary.service.BillingService;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/billing")
@@ -24,7 +25,7 @@ public class BillingController {
     }
 
     @GetMapping("/months")
-    public ResponseEntity<List<Month>> getAllUserMonths(){
+    public ResponseEntity<Set<Month>> getAllUserMonths(){
         return new ResponseEntity<>(billingService.getAllUserMonths(), HttpStatus.OK);
     }
 }
