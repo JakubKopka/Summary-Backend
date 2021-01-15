@@ -27,7 +27,7 @@ public class BillingService {
         return billingRepo.save(billing);
     }
 
-    public Set<Month> getAllUserMonths() {
+    public List<Month> getAllUserMonths() {
         return monthService.getAllUserMonths();
     }
 

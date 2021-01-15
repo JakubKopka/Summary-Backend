@@ -25,7 +25,7 @@ public class BillingController {
     }
 
     @GetMapping("/months")
-    public ResponseEntity<Set<Month>> getAllUserMonths(){
+    public ResponseEntity<List<Month>> getAllUserMonths(){
         return new ResponseEntity<>(billingService.getAllUserMonths(), HttpStatus.OK);
     }
 }

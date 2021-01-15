@@ -7,10 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor
 @Getter
@@ -27,11 +24,11 @@ public class Billing {
 
     @JoinColumn(name = "billingId")
     @OneToMany
-    private Set<Month> months = new HashSet<>();
+    private List<Month> months = new ArrayList<>();
 
     @JoinColumn(name = "billingId")
     @OneToMany
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories = new ArrayList<>();
 
     public void addCategory(Category category){
         this.categories.add(category);

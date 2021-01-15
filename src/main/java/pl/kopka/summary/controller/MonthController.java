@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.kopka.summary.domain.model.Month;
 import pl.kopka.summary.service.MonthService;
 
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -26,7 +27,7 @@ public class MonthController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Set<Month>> all(){
+    public ResponseEntity<List<Month>> all(){
         return new ResponseEntity<>(monthService.getAllUserMonths(), HttpStatus.OK);
     }
 }

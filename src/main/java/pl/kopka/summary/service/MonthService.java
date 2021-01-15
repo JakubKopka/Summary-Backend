@@ -37,8 +37,8 @@ public class MonthService {
         return month;
     }
 
-    public Set<Month> getAllUserMonths(){
-        Set<Month> months = userService.getCurrentLoginUser().getBilling().getMonths();
+    public List<Month> getAllUserMonths(){
+        List<Month> months = userService.getCurrentLoginUser().getBilling().getMonths();
         months.forEach(obj -> obj.setTotal(obj.getOperationList().stream().mapToDouble(Operation::getAmount).sum()));
         return months;
     }

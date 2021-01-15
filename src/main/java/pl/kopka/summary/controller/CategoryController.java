@@ -23,13 +23,12 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Category> addNewCategory(@RequestBody Category newCategory){
-        Category category = categoryService.addNewCategory(newCategory);
-        return new ResponseEntity<>(category, HttpStatus.OK);
+    public ResponseEntity<List<Category>> addNewCategory(@RequestBody Category newCategory){
+        return new ResponseEntity<>(categoryService.addNewCategory(newCategory), HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Set<Category>> getAll(){
+    public ResponseEntity<List<Category>> getAll(){
         return new ResponseEntity<>(categoryService.getAll(), HttpStatus.OK);
     }
 

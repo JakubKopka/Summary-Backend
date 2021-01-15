@@ -9,10 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor
 @Getter
@@ -30,7 +27,7 @@ public class Category {
     private String description;
     @OneToMany(mappedBy = "category")
     @JsonIgnore
-    private Set<Operation> operationList = new HashSet<>();
+    private List<Operation> operationList = new ArrayList<>();
     @Transient
     private double total = 0;
 

@@ -26,17 +26,17 @@ public class CategoryService {
     @Autowired
     UserService userService;
 
-    public Category addNewCategory(Category category){
+    public List<Category> addNewCategory(Category category){
         category.setCategoryId(RandomStringUtils.randomNumeric(20));
         category = categoryRepo.save(category);
         Billing billing = userService.getCurrentLoginUser().getBilling();
         billing.addCategory(category);
         billingRepo.save(billing);
-        return category;
+        return getAll();
     }
 
-    public Set<Category> getAll() {
-        Set<Category> categories = userService.getCurrentLoginUser().getBilling().getCategories();
+    public List<Category> getAll() {
+        List<Category> categories = userService.getCurrentLoginUser().getBilling().getCategories();
         categories.forEach(obj -> obj.setTotal(obj.getOperationList().stream().mapToDouble(Operation::getAmount).sum()));
         return categories;
     }

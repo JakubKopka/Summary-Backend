@@ -7,10 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -28,7 +25,7 @@ public class Month {
 
     @JoinColumn(name = "monthId")
     @OneToMany
-    private Set<Operation> operationList = new HashSet<>();
+    private List<Operation> operationList = new ArrayList<>();
 
     @Transient
     private double total = 0;
