@@ -46,7 +46,7 @@ public class JwtTokenProvider {
         for (GrantedAuthority grantedAuthority : user.getAuthorities()){
             authorities.add(grantedAuthority.getAuthority());
         }
-        return authorities.toArray(String[]::new);
+        return authorities.toArray(new String[0]);
     }
 
     public String getSubject(String token) {
