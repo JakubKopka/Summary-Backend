@@ -11,6 +11,7 @@ import pl.kopka.summary.domain.model.Month;
 import pl.kopka.summary.service.BillingService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -20,6 +21,7 @@ public class BillingController {
 
     private final BillingService billingService;
 
+    @Autowired
     public BillingController(BillingService billingService) {
         this.billingService = billingService;
     }
@@ -27,5 +29,10 @@ public class BillingController {
     @GetMapping("/months")
     public ResponseEntity<List<Month>> getAllUserMonths(){
         return new ResponseEntity<>(billingService.getAllUserMonths(), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, List<?>>> getMonthsAndCategories(){
+        return new ResponseEntity<>(billingService.getMonthsAndCategories(), HttpStatus.OK);
     }
 }

@@ -24,6 +24,7 @@ public class Billing {
 
     @JoinColumn(name = "billingId")
     @OneToMany
+    @OrderBy("year ASC, number ASC")
     private List<Month> months = new ArrayList<>();
 
     @JoinColumn(name = "billingId")

@@ -27,6 +27,7 @@ public class Category {
     private String description;
     @OneToMany(mappedBy = "category")
     @JsonIgnore
+    @OrderBy("date ASC")
     private List<Operation> operationList = new ArrayList<>();
     @Transient
     private double total = 0;

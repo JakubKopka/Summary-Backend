@@ -25,6 +25,7 @@ public class Month {
 
     @JoinColumn(name = "monthId")
     @OneToMany
+    @OrderBy("date ASC")
     private List<Operation> operationList = new ArrayList<>();
 
     @Transient

@@ -1,5 +1,6 @@
 package pl.kopka.summary.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,9 +13,9 @@ import pl.kopka.summary.security.JwtTokenProvider;
 public class AuthenticateService {
 
     private AuthenticationManager authenticationManager;
-
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
     public AuthenticateService(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;

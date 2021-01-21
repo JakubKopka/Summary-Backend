@@ -24,10 +24,8 @@ public class Operation {
     private double amount;
     private String description;
     private Date date;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Category category;
-
-
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Transient
     private String categoryId;

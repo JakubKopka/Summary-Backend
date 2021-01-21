@@ -7,4 +7,5 @@ import pl.kopka.summary.domain.model.Month;
 @Repository
 public interface MonthRepo extends JpaRepository<Month, Long> {
     Month findMonthByMonthId(String monthId);
+    Month findMonthByYearAndNumber(int year, int number);
 }

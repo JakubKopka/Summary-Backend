@@ -6,4 +6,5 @@ import pl.kopka.summary.domain.model.Operation;
 
 @Repository
 public interface OperationRepo extends JpaRepository<Operation, Long> {
+    void deleteOperationByOperationId(String operationId);
 }

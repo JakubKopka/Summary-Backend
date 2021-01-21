@@ -22,7 +22,7 @@ import java.util.Objects;
 import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
-public class ExceptionUserHandling implements ErrorController {
+public class ExceptionHandling implements ErrorController {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     private static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration (admin@admin.pl)";
@@ -114,5 +114,14 @@ public class ExceptionUserHandling implements ErrorController {
     }
 
 
+    @ExceptionHandler(MonthException.class)
+    public ResponseEntity<HttpResponse> monthException(MonthException e){
+        return createHttpResponse(BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler(CategoryExistException.class)
+    public ResponseEntity<HttpResponse> categoryException(CategoryExistException e){
+        return createHttpResponse(BAD_REQUEST, e.getMessage());
+    }
 
 }

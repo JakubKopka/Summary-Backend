@@ -8,4 +8,5 @@ import pl.kopka.summary.domain.model.Category;
 public interface CategoryRepo extends JpaRepository<Category, Long> {
     Category findCategoryByCategoryId(String categoryId);
     void deleteCategoryByCategoryId(String categoryId);
+    Category findCategoryByName(String name);
 }

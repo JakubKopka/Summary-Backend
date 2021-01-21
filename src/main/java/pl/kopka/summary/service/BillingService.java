@@ -4,23 +4,24 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.kopka.summary.domain.model.Billing;
+import pl.kopka.summary.domain.model.Category;
 import pl.kopka.summary.domain.model.Month;
 import pl.kopka.summary.repository.BillingRepo;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 @Service
 public class BillingService {
 
-
     @Autowired
-    BillingRepo billingRepo;
-//    @Autowired
-//    UserService userService;
-
+    private BillingRepo billingRepo;
     @Autowired
-    MonthService monthService;
+    private MonthService monthService;
+    @Autowired
+    private CategoryService categoryService;
+
 
     public Billing addNewBilling(Billing billing){
         billing.setBillingId(RandomStringUtils.randomNumeric(20));
@@ -31,11 +32,16 @@ public class BillingService {
         return monthService.getAllUserMonths();
     }
 
-//    public Billing getBilling() {
-//        return userService.getCurrentLoginUser().getBilling();
-//    }
+    public List<Category> getAllUserCategories() {
+        return categoryService.getAllUserCategories();
+    }
 
-//    public Billing getCurrentLoginUserBilling(){
-//        return userService.getCurrentLoginUser().getBilling();
-//    }
+    public Map<String, List<?>> getMonthsAndCategories() {
+        List<Month> months = getAllUserMonths();
+        List<Category> categories = getAllUserCategories();
+        Map<String, List<?>> map = new HashMap<>();
+        map.put("months", months);
+        map.put("categories", categories);
+        return map;
+    }
 }

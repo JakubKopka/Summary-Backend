@@ -6,15 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pl.kopka.summary.domain.model.Month;
+import pl.kopka.summary.exception.exceptions.MonthException;
 import pl.kopka.summary.service.MonthService;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/month")
 @CrossOrigin
 public class MonthController {
+
     private final MonthService monthService;
     @Autowired
     public MonthController(MonthService monthService) {
@@ -22,7 +23,7 @@ public class MonthController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Month> add(@RequestBody Month month){
+    public ResponseEntity<List<Month>> add(@RequestBody Month month) throws MonthException {
         return new ResponseEntity<>(monthService.addNewMonth(month), HttpStatus.OK);
     }
 
