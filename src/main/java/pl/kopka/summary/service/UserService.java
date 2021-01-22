@@ -29,21 +29,16 @@ public class UserService implements UserDetailsService {
 
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    private UserRepo userRepo;
-    private JwtTokenProvider jwtTokenProvider;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private EmailService emailService;
-    private BillingService billingService;
-
     @Autowired
-    public UserService(UserRepo userRepo, JwtTokenProvider jwtTokenProvider, BCryptPasswordEncoder bCryptPasswordEncoder,
-                       EmailService emailService, BillingService billingService) {
-        this.userRepo = userRepo;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.emailService = emailService;
-        this.billingService = billingService;
-    }
+    private UserRepo userRepo;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    private BillingService billingService;
 
 
     @Override
