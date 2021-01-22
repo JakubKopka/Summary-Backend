@@ -13,7 +13,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/month")
-@CrossOrigin
 public class MonthController {
 
     private final MonthService monthService;

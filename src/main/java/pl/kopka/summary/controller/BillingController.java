@@ -16,7 +16,6 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/billing")
-@CrossOrigin
 public class BillingController {
 
     private final BillingService billingService;

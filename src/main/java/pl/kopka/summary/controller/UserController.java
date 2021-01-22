@@ -20,7 +20,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(path = {"/", "/user"})
-@CrossOrigin
 public class UserController {
 
     private AuthenticateService authenticateService;

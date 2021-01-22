@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/operation")
-@CrossOrigin
 public class OperationController {
 
     private final MonthService monthService;
