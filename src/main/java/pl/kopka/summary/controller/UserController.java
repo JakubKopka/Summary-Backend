@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-//    @MeasureTimeAspect
+    @MeasureTimeAspect
     public ResponseEntity<Map<String, Object>> login(@RequestBody User user){
         authenticateService.authenticateUser(user.getUsername(), user.getPassword());
         User authUser = userService.findUserByUsername(user.getUsername());
@@ -45,27 +45,27 @@ public class UserController {
     }
 
     @PostMapping("/reset-password")
-//    @MeasureTimeAspect
+    @MeasureTimeAspect
     public ResponseEntity<?> resetPassword(@RequestBody User user) throws EmailNotFoundException, UsernameExistException, EmailExistException {
         userService.resetPasswordByEmail(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/verify-token")
-//    @MeasureTimeAspect
+    @MeasureTimeAspect
     public ResponseEntity<User> getUserInfo(){
         return new ResponseEntity<>(userService.getCurrentLoginUser(), HttpStatus.OK);
     }
 
     @PostMapping("/register")
-//    @MeasureTimeAspect
+    @MeasureTimeAspect
     public ResponseEntity<User> register(@RequestBody User user) throws UsernameExistException, EmailExistException {
         User newUser = userService.register(user);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
     @PostMapping("/update")
-//    @MeasureTimeAspect
+    @MeasureTimeAspect
     public ResponseEntity<User> updateUser(@RequestBody User user) throws PasswordNotMachException, UsernameExistException, EmailExistException {
         User updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
