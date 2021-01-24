@@ -25,11 +25,11 @@ public class MonthService {
     private BillingRepo billingRepo;
     @Autowired
     private UserService userService;
-    @Autowired
-    private MonthService monthService;
+//    @Autowired
+//    private MonthService monthService;
 
     public List<Month> addNewMonth(Month month) throws MonthException {
-        List<Month> userMonths = monthService.getAllUserMonths();
+        List<Month> userMonths = getAllUserMonths();
         Month finalMonth = month;
         if (userMonths.stream().filter(m -> m.getNumber() == finalMonth.getNumber() && m.getYear() == finalMonth.getYear()).collect(Collectors.toList()).stream().findFirst().isPresent()) {
             throw new MonthException(MonthsAndCategoriesConst.MONTH_EXIST);

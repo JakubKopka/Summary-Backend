@@ -1,6 +1,7 @@
 package pl.kopka.summary.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +123,7 @@ public class UserService implements UserDetailsService {
         return userRepo.findUserByUsername(currentPrincipalName);
     }
 
-    public void resetPasswordByEmail(User userForm) throws EmailNotFoundException, UsernameExistException, EmailExistException {
+    public void resetPasswordByEmail(User userForm) throws EmailNotFoundException {
         User user = userRepo.findUserByEmail(userForm.getEmail());
         if (user == null) {
             throw new EmailNotFoundException(UserConst.NO_USER_FOUND_BY_EMAIL + userForm.getEmail());
@@ -141,7 +142,7 @@ public class UserService implements UserDetailsService {
     public User updateUser(User userForm) throws PasswordNotMachException, UsernameExistException, EmailExistException {
         User user = getCurrentLoginUser();
         validateNewUsernameAndEmail(user, userForm);
-        if (!userForm.getPassword().equals("")) {
+        if (userForm.getNewPassword().replaceAll("\\s+","").length()>0) {
             if (!bCryptPasswordEncoder.matches(userForm.getPassword(), user.getPassword())) {
                 throw new PasswordNotMachException(UserConst.PASSWORD_NOT_MACH);
             }

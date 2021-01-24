@@ -1,13 +1,16 @@
 package pl.kopka.summary.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -15,6 +18,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import pl.kopka.summary.domain.model.Billing;
 import pl.kopka.summary.domain.model.Category;
 import pl.kopka.summary.domain.model.Month;
+import pl.kopka.summary.domain.model.User;
+import pl.kopka.summary.exception.exceptions.EmailExistException;
+import pl.kopka.summary.exception.exceptions.UsernameExistException;
+import pl.kopka.summary.repository.UserRepo;
 import pl.kopka.summary.service.BillingService;
 
 import java.util.ArrayList;
@@ -28,7 +35,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 class BillingControllerTest {
@@ -37,48 +43,18 @@ class BillingControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    private BillingService billingService;
-
-    public List<Month> initMonths() {
-        List<Month> months = new ArrayList<>();
-        Month m = new Month();
-        m.setNumber(9);
-        m.setYear(2021);
-        months.add(m);
-        return months;
-    }
-
-    public List<Category> initCategories() {
-        List<Category> categories = new ArrayList<>();
-        Category c = new Category();
-
-        categories.add(c);
-        return categories;
-    }
-
-
     @Test
     void shouldReturnAllUserMonths() throws Exception {
-        List<Month> months = initMonths();
-        when(billingService.getAllUserMonths()).thenReturn(months);
         mockMvc.perform(get("/billing/months").header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$[0].number").value(months.get(0).getNumber()))
-                .andExpect(jsonPath("$[0].year").value(months.get(0).getYear()));
+                .andExpect(jsonPath("$[0].number").value(1));
     }
 
     @Test
     void shouldReturnMonthsAndCategories() throws Exception {
-        Map<String, List<?>> monthsAndCategories = new HashMap<>();
-        monthsAndCategories.put("months", initMonths());
-        monthsAndCategories.put("categories", initCategories());
-        when(billingService.getMonthsAndCategories()).thenReturn(monthsAndCategories);
-
         mockMvc.perform(get("/billing/all").header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isMap())
-                .andExpect(jsonPath("$categories[0].").value(initCategories()));
+                .andExpect(jsonPath("$").isMap());
     }
 }
