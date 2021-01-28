@@ -1,7 +1,6 @@
 package pl.kopka.summary.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import pl.kopka.summary.exception.exceptions.EmailExistException;
 import pl.kopka.summary.exception.exceptions.EmailNotFoundException;
 import pl.kopka.summary.exception.exceptions.PasswordNotMachException;
 import pl.kopka.summary.exception.exceptions.UsernameExistException;
+import pl.kopka.summary.repository.BillingRepo;
 import pl.kopka.summary.repository.UserRepo;
 import pl.kopka.summary.security.JwtTokenProvider;
 
@@ -27,19 +27,22 @@ import java.util.Date;
 
 @Service
 public class UserService implements UserDetailsService {
-
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
+    private final UserRepo userRepo;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailService emailService;
+    private final BillingRepo billingRepo;
+
     @Autowired
-    private UserRepo userRepo;
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private EmailService emailService;
-    @Autowired
-    private BillingService billingService;
+    public UserService(UserRepo userRepo, JwtTokenProvider jwtTokenProvider, BCryptPasswordEncoder bCryptPasswordEncoder, EmailService emailService, BillingRepo billingRepo) {
+        this.userRepo = userRepo;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.emailService = emailService;
+        this.billingRepo = billingRepo;
+    }
 
 
     @Override
@@ -71,7 +74,8 @@ public class UserService implements UserDetailsService {
         user.setNotLocked(true);
         user.setRoles(getUserRoles());
         Billing billing = new Billing();
-        billing = billingService.addNewBilling(billing);
+        billing.setBillingId(RandomStringUtils.randomNumeric(20));
+        billing = billingRepo.save(billing);
         user.setBilling(billing);
         userRepo.save(user);
         LOGGER.info("New user was created! " + user.getUsername());

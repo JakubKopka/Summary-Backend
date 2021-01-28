@@ -1,9 +1,7 @@
 package pl.kopka.summary.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.kopka.summary.constant.MonthsAndCategoriesConst;
 import pl.kopka.summary.domain.model.Billing;
@@ -19,14 +17,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class MonthService {
+    private final MonthRepo monthRepo;
+    private final UserService userService;
+    private final BillingRepo billingRepo;
+
     @Autowired
-    private MonthRepo monthRepo;
-    @Autowired
-    private BillingRepo billingRepo;
-    @Autowired
-    private UserService userService;
-//    @Autowired
-//    private MonthService monthService;
+    public MonthService(MonthRepo monthRepo, UserService userService, BillingRepo billingRepo) {
+        this.monthRepo = monthRepo;
+        this.userService = userService;
+        this.billingRepo = billingRepo;
+    }
 
     public List<Month> addNewMonth(Month month) throws MonthException {
         List<Month> userMonths = getAllUserMonths();
