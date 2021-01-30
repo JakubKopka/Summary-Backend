@@ -2,7 +2,7 @@
 
 ## Screens from application
 * Home
-  [Home screen](./img/home.png)
+  ![Home screen](./img/home.png)
 * Login
   ![Login screen](./img/login.png)
 * Register
