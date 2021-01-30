@@ -35,7 +35,7 @@
     ![Reset password screen](./img/reset_password.png)
   * #### User profile
     ![User profile screen](./img/profile.png)
-* ### Summary
+* ### My Summary
   * #### Months
     ![Months screen](./img/months.png)
   * #### Categories 
